@@ -1,6 +1,6 @@
 {
   "name": "use-material-ui-dialog",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "React hook for Material-UI dialog.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",

@@ -1,2 +1,5 @@
 export * from './DialogProvider'
+export * from './IAlertOptions'
+export * from './IDialogContext'
+export * from './IDialogOptions'
 export * from './useDialog'
