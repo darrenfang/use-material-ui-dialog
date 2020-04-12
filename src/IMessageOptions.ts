@@ -1,10 +1,12 @@
 import { PropTypes } from '@material-ui/core'
 import { ReactElement } from 'react'
 
-export interface IAlertOptions {
+export interface IMessageOptions {
   className?: string
   title?: string
   message?: string
   children?: ReactElement
   color?: PropTypes.Color
+  okText?: string
+  onOk?: () => void
 }

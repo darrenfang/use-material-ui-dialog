@@ -15,6 +15,7 @@ import { DEFAULT_DIALOG_OPTIONS, IDialogOptions } from './IDialogOptions'
 import { DialogContext } from './IDialogContext'
 import { IAlertOptions } from './IAlertOptions'
 import { createStyles, makeStyles } from '@material-ui/styles'
+import { IMessageOptions } from './IMessageOptions'
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,7 +57,7 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
     cancelColor,
     hideOk,
     hideCancel,
-    oKText,
+    okText,
     cancelText,
     onOk,
     onCancel
@@ -67,6 +68,7 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
   }
 
   const classes = useStyles(options)
+  const showActions = !(hideOk && hideCancel)
 
   const confirmHandler = (options: IDialogOptions) => {
     setOptions(options)
@@ -74,6 +76,16 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
   }
 
   const alertHandler = (options: IAlertOptions) => {
+    setOptions({
+      ...options,
+      okColor: options.color,
+      hideOk: true,
+      hideCancel: true
+    })
+    setOpen(true)
+  }
+
+  const messageHandler = (options: IMessageOptions) => {
     setOptions({
       ...options,
       okColor: options.color,
@@ -101,6 +113,7 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
       <DialogContext.Provider value={{
         openConfirm: confirmHandler,
         openAlert: alertHandler,
+        openMessage: messageHandler,
         close: closeHandler
       }}>
         {children}
@@ -124,26 +137,29 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
             </DialogContentText>
           </DialogContent>
           <Divider/>
-          <DialogActions>
-            {
-              !hideOk &&
-              <Button
-                color={okColor || 'primary'}
-                onClick={okHandler}
-              >
-                {oKText || '确定'}
-              </Button>
-            }
-            {
-              !hideCancel &&
-              <Button
-                color={cancelColor || 'default'}
-                onClick={closeHandler}
-              >
-                {cancelText || '取消'}
-              </Button>
-            }
-          </DialogActions>
+          {
+            showActions &&
+            <DialogActions>
+              {
+                !hideOk &&
+                <Button
+                  color={okColor || 'primary'}
+                  onClick={okHandler}
+                >
+                  {okText || '确定'}
+                </Button>
+              }
+              {
+                !hideCancel &&
+                <Button
+                  color={cancelColor || 'default'}
+                  onClick={closeHandler}
+                >
+                  {cancelText || '取消'}
+                </Button>
+              }
+            </DialogActions>
+          }
         </Dialog>
       </DialogContext.Provider>
     </React.Fragment>

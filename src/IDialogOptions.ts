@@ -10,7 +10,7 @@ export interface IDialogOptions {
   cancelColor?: PropTypes.Color
   hideOk?: boolean
   hideCancel?: boolean
-  oKText?: string
+  okText?: string
   cancelText?: string
   onOk?: () => void
   onCancel?: () => void
