@@ -5,6 +5,6 @@ export interface IAlertOptions {
   className?: string
   title?: string
   message?: string
-  children?: ReactElement
+  element?: ReactElement
   color?: PropTypes.Color
 }

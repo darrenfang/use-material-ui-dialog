@@ -5,7 +5,7 @@ export interface IMessageOptions {
   className?: string
   title?: string
   message?: string
-  children?: ReactElement
+  element?: ReactElement
   color?: PropTypes.Color
   okText?: string
   onOk?: () => void
