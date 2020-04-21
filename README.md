@@ -2,7 +2,7 @@
 
 ![Node.js Package](https://github.com/darrenfang/use-material-ui-dialog/workflows/Node.js%20Package/badge.svg)
 ![NPM](https://img.shields.io/npm/l/use-material-ui-dialog)
-![npm](https://img.shields.io/npm/v/use-material-ui-dialog)
+[![npm](https://img.shields.io/npm/v/use-material-ui-dialog)](https://www.npmjs.com/package/use-material-ui-dialog)
 
 React hook for Material-UI dialog.
 
@@ -16,7 +16,7 @@ yarn add use-material-ui-dialog
 
 Wrap your app inside the ConfirmProvider component.
 
-```javascript
+```typescript jsx
 import React from 'react'
 import { DialogProvider } from 'use-material-ui-dialog'
 
@@ -33,7 +33,7 @@ export default App
 
 Call the `useDialog` hook in the components.
 
-```javascript
+```typescript jsx
 import React from 'react'
 import { Button } from '@material-ui/core'
 import { useDialog } from 'use-material-ui-dialog'
