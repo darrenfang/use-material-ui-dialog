@@ -133,8 +133,8 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
                 message &&
                 <span dangerouslySetInnerHTML={html}/>
               }
-              {element}
             </DialogContentText>
+            {element}
           </DialogContent>
           <Divider/>
           {
