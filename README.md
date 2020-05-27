@@ -14,7 +14,7 @@ yarn add use-material-ui-dialog
 
 ## Usage
 
-Wrap your app inside the ConfirmProvider component.
+Wrap your app inside the DialogProvider component.
 
 ```typescript jsx
 import React from 'react'
@@ -54,5 +54,36 @@ export const MyComponent: React.FunctionComponent = () => {
       Click Me
     </Button>
   )
+}
+```
+
+Use the `DialogContext.Provider` object in the components.
+
+```typescript jsx
+import React from 'react'
+import { AppProps } from 'next/app'
+import { DialogProvider } from 'use-material-ui-dialog'
+
+export default class Welcome extends React.Component {
+  constructor(props: AppProps) {
+    super(props)
+    this.context = null
+  }
+
+  componentDidMount() {
+    this.context.openMessage({
+      title: 'ALERT',
+      message: 'this is alert'
+    })
+  }
+
+  render() {
+    return (
+      <DialogProvider
+        context={(context) => this.context = context}
+      >
+      </DialogProvider>
+    )
+  }
 }
 ```
