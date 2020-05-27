@@ -1,6 +1,7 @@
 import * as React from 'react'
 import { useState } from 'react'
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -17,12 +18,18 @@ import { IAlertOptions } from './IAlertOptions'
 import { createStyles, makeStyles } from '@material-ui/styles'
 import { IMessageOptions } from './IMessageOptions'
 
+const DEFAULT_OK_COLOR = 'primary'
+const DEFAULT_CANCEL_COLOR = 'default'
+const DEFAULT_OK_TEXT = '确定'
+const DEFAULT_CANCEL_TEXT = '取消'
+const DEFAULT_FULL_SCREEN = false
+const DEFAULT_FULL_WIDTH = true
+const DEFAULT_MAX_WIDTH = 'xs'
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
-      minWidth: 400,
-      minHeight: 150,
-      paddingTop: theme.spacing(3)
+      minHeight: 150
     },
     title: (props: IDialogOptions) => (
       {
@@ -60,7 +67,10 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
     okText,
     cancelText,
     onOk,
-    onCancel
+    onCancel,
+    fullScreen,
+    fullWidth,
+    maxWidth
   } = options
 
   const html = {
@@ -119,23 +129,36 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
         {children}
 
         <Dialog
+          fullWidth={fullWidth || DEFAULT_FULL_WIDTH}
+          fullScreen={fullScreen || DEFAULT_FULL_SCREEN}
+          maxWidth={maxWidth || DEFAULT_MAX_WIDTH}
           open={open}
           aria-labelledby="dialog-title"
           aria-describedby="dialog-description"
         >
           {
             title &&
-            <DialogTitle id="dialog-title" className={classes.title}>{title}</DialogTitle>
+            <DialogTitle
+              id="dialog-title"
+              className={classes.title}
+            >
+              {title}
+            </DialogTitle>
           }
-          <DialogContent className={`${classes.content} ${className}`}>
-            <DialogContentText id="confirm-dialog-description">
-              {
-                message &&
+          {
+            message &&
+            <DialogContent className={`${classes.content} ${className}`}>
+              <DialogContentText id="confirm-dialog-description">
                 <span dangerouslySetInnerHTML={html}/>
-              }
-            </DialogContentText>
-            {element}
-          </DialogContent>
+              </DialogContentText>
+            </DialogContent>
+          }
+          {
+            element &&
+            <Box className={`${classes.content} ${className}`}>
+              {element}
+            </Box>
+          }
           <Divider/>
           {
             showActions &&
@@ -143,19 +166,19 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
               {
                 !hideOk &&
                 <Button
-                  color={okColor || 'primary'}
+                  color={okColor || DEFAULT_OK_COLOR}
                   onClick={okHandler}
                 >
-                  {okText || '确定'}
+                  {okText || DEFAULT_OK_TEXT}
                 </Button>
               }
               {
                 !hideCancel &&
                 <Button
-                  color={cancelColor || 'default'}
+                  color={cancelColor || DEFAULT_CANCEL_COLOR}
                   onClick={closeHandler}
                 >
-                  {cancelText || '取消'}
+                  {cancelText || DEFAULT_CANCEL_TEXT}
                 </Button>
               }
             </DialogActions>

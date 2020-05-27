@@ -14,6 +14,9 @@ export interface IDialogOptions {
   cancelText?: string
   onOk?: () => void
   onCancel?: () => void
+  fullWidth?: boolean
+  fullScreen?: boolean
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false
 }
 
 export const DEFAULT_DIALOG_OPTIONS: IDialogOptions = {}

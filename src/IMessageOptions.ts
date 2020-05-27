@@ -9,4 +9,7 @@ export interface IMessageOptions {
   color?: PropTypes.Color
   okText?: string
   onOk?: () => void
+  fullWidth?: boolean
+  fullScreen?: boolean
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false
 }

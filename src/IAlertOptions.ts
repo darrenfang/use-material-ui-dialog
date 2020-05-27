@@ -7,4 +7,7 @@ export interface IAlertOptions {
   message?: string
   element?: ReactElement
   color?: PropTypes.Color
+  fullWidth?: boolean
+  fullScreen?: boolean
+  maxWidth?: 'xs' | 'sm' | 'md' | 'lg' | 'xl' | false
 }
