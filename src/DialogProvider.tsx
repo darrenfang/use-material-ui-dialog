@@ -13,7 +13,7 @@ import {
   Theme
 } from '@material-ui/core'
 import { DEFAULT_DIALOG_OPTIONS, IDialogOptions } from './IDialogOptions'
-import { DialogContext } from './IDialogContext'
+import { DialogContext, IDialogContext } from './IDialogContext'
 import { IAlertOptions } from './IAlertOptions'
 import { createStyles, makeStyles } from '@material-ui/styles'
 import { IMessageOptions } from './IMessageOptions'
@@ -51,7 +51,11 @@ const getRGB = (color?: PropTypes.Color) => {
   }
 }
 
-export const DialogProvider: React.FunctionComponent = ({ children }) => {
+interface Props {
+  context?: (context: IDialogContext) => void
+}
+
+export const DialogProvider: React.FunctionComponent<Props> = ({ context, children }) => {
 
   const [open, setOpen] = useState(false)
   const [options, setOptions] = useState(DEFAULT_DIALOG_OPTIONS)
@@ -118,14 +122,20 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
     }
   }
 
+  const provider: IDialogContext = {
+    openConfirm: confirmHandler,
+    openAlert: alertHandler,
+    openMessage: messageHandler,
+    close: closeHandler
+  }
+
+  if (context) {
+    context(provider)
+  }
+
   return (
-    <React.Fragment>
-      <DialogContext.Provider value={{
-        openConfirm: confirmHandler,
-        openAlert: alertHandler,
-        openMessage: messageHandler,
-        close: closeHandler
-      }}>
+    <Box>
+      <DialogContext.Provider value={provider}>
         {children}
 
         <Dialog
@@ -185,7 +195,6 @@ export const DialogProvider: React.FunctionComponent = ({ children }) => {
           }
         </Dialog>
       </DialogContext.Provider>
-    </React.Fragment>
+    </Box>
   )
 }
-
